@@ -1,28 +1,28 @@
 export default {
-    SET_USER(state, user) {
+
+    ADD_USER_TO_STATE(state, user) {
         state.user = user
     },
-    AUTH_REQUEST: (state) => {
-        state.status = "loading"
-    },
-    AUTH_SUCCESS: (state, { token, user }) => {
-        state.status = "Success"
+
+    ADD_TOKEN_TO_STATE: (state, token) => {
         state.token = token
-        state.user = user
-        state.isLoggedIn = true
     },
-    REG_SUCCESS: (state) => {
-        state.regSuccess = 'Registration was succesful'
+
+    REG_SUCCESS_MESSAGE: (state, message) => {
+        state.regSuccessMessage = message
     },
-    REG_CLEAR: (state) => {
-        state.regSuccess = ''
+
+    CLEAR_REG_SUCCESS_MESSAGE: (state) => {
+        state.regSuccessMessage = ''
     },
-    AUTH_ERROR: (state, errors) => {
-        state.status = 'error'
+    ADD_ERRORS_TO_STATE: (state, errors) => {
         state.errors = errors
     },
-    LOGOUT: (state) => {
-        state.status = ''
+    CLEAR_ERRORS_FROM_STATE: (state) => {
+        state.errors = ''
+    },
+    CLEAR_USER_AND_TOKEN_FROM_STATE: (state) => {
         state.token = ''
+        state.user = {}
     }
 }
