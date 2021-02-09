@@ -12,6 +12,7 @@
         "@capacitor/cli": "^2.4.2",
         "@capacitor/core": "^2.4.2",
         "axios": "^0.19.2",
+        "cordova-res": "^0.15.3",
         "core-js": "^3.6.5",
         "nprogress": "^0.2.0",
         "v-calendar": "^1.0.8",

@@ -13,6 +13,8 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
+import { Plugins } from '@capacitor/core'
+const { SplashScreen } = Plugins
 Vue.use(VueToast, {
     position: "top"
 })
@@ -29,11 +31,12 @@ Vue.use(Loading, {
 import Fragment from 'vue-fragment'
 Vue.use(Fragment.Plugin)
 
-// Layouts using global components
+// Layout template files
 import Default from './layouts/Default.vue'
 import Page from './layouts/Page.vue'
 import Landing from './views/Landing.vue'
 
+// Make layouts into Global Components. A Global component is available throughout the app. No need to import and register in components. Just add
 Vue.component("default", Default)
 Vue.component("page", Page)
 Vue.component("landing", Landing)
@@ -46,7 +49,10 @@ new Vue({
     store,
     router,
     vuetify,
-    render: h => h(App)
+    render: h => h(App),
+    mounted() {
+        SplashScreen.hide()
+    },
 }).$mount('#app')
 
 
