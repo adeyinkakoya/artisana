@@ -1,82 +1,77 @@
-// profile
-// import profilePage from '../pages/profile/ProfilePage.vue'
-// import profilePostsPage from '../pages/profile/ProfilePostsPage.vue'
+// Import views here.
+//import Home from '../views/Home.vue'
+//import About from '../views/About.vue'
 
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import About from '../views/About.vue'
-import Secure from '../views/dashboard/secure.vue'
-
-//import Product from '../views/Product.vue'
-
-import NotFound from '../views/NotFound.vue'
-
-//import { routePropResolver } from './util'
-import { DOMAIN_TITLE } from '../env'
+//import { redirectToDashboard } from './middlewares'
 
 export const routes = [{
         path: '/',
-        name: 'Home',
-        component: Home,
-        meta: { title: `${DOMAIN_TITLE} | Welcome` }
+        name: 'landing',
+        component: () =>
+            import ('../views/Landing.vue'),
+        meta: {
+            desc: "Landing",
+            isGuest: true,
+            layout: "landing"
+        }
+
     },
     {
         path: '/login',
         name: 'login',
-        component: Login,
-        meta: { title: `${DOMAIN_TITLE} | Login` }
+        component: () =>
+            import ('../views/Home.vue'),
+        meta: {
+            desc: "Login",
+            step: 1,
+            isGuest: true
+        },
+        //beforeEnter: redirectToDashboard
     },
-    {
-        path: '/about',
-        name: 'about',
-        component: About,
-        meta: { title: `${DOMAIN_TITLE} | About Us` }
-    },
+
     {
         path: '/register',
         name: 'register',
-        component: Register,
-        meta: { title: `${DOMAIN_TITLE} | Register` }
+        component: () =>
+            import ('../views/Home.vue'),
+        meta: {
+            desc: "Register",
+            step: 2,
+            isGuest: true
+        },
+        //beforeEnter: redirectToDashboard
+    },
+
+    {
+        path: '/forgot-password',
+        name: 'forgot-password',
+        component: () =>
+            import ('../views/Home.vue'),
+        meta: {
+            desc: "Forgot Password",
+            step: 3,
+            isGuest: true
+        },
+        //beforeEnter: redirectToDashboard
     },
     {
-        path: '/dashboard/secure',
-        name: 'secure',
-        component: Secure,
-        meta: { isAuth: true, title: `${DOMAIN_TITLE} | Secure ` }
+        path: '/dashboard',
+        name: 'dashboard',
+        component: () =>
+            import ('../views/user/Dashboard.vue'),
+        meta: {
+            desc: "Dashboard",
+            isAuth: true,
+            layout: 'page'
+        }
     },
-    // {
-    //     path: '/product/:id',
-    //     name: 'Product',
-    //     component: Product,
-    //     meta: { title: `${DOMAIN_TITLE} | Product` },
-    //     props: true
-    // },
-
-    // {
-    //   path: '/news',
-    //   name: 'news',
-    //   component: newsPage,
-    //   meta: { title: `${DOMAIN_TITLE} | news` },
-    //   props: routePropResolver
-    // },
-
-
-    // {
-    //   path: '/profile',
-    //   component: profilePage,
-    //   meta: { isAuth: true, title: `${DOMAIN_TITLE} | profile` },
-    //   children: [
-    //     {
-    //       path: '',
-    //       name: 'profile',
-    //       component: profilePostsPage
-    //     }
-    //   ]
-    // },
     {
         path: '*',
-        component: NotFound,
-        meta: { title: `${DOMAIN_TITLE} | not found` }
+        component: () =>
+            import ( /* webpackChunkName: "notfound" */ '../views/NotFound.vue'),
+        meta: {
+            layout: "page"
+        }
     }
+
 ]

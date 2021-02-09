@@ -1,32 +1,54 @@
 <template>
-  <div>
-    <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-        <router-link to="/about">Login</router-link>
-        <span v-if="isLoggedIn"> | <a @click="logoutUser">Logout</a></span>
-    </div>
-    <router-view/>
-  </div>
+    <v-app>
+        <component :is="layout">
+                <v-main>
+                       
+                          <v-fade-transition mode="out-in">
+                                  <keep-alive>
+                                      <router-view :deviceModel="deviceModel" />
+                                  </keep-alive>
+                            </v-fade-transition>
+                       
+                </v-main>
+          </component>
+            <FooterNav v-if="currentUserId"/>
+      </v-app>
 </template>
 <script>
-import {mapGetters,mapActions} from 'vuex'
+import { Plugins } from '@capacitor/core'
+import FooterNav from "./components/FooterNav.vue";
+import {mapGetters} from 'vuex'
 export default {
   name:"app",
+  components:{
+    FooterNav
+  },
   data() {
     return {
-     
+      deviceModel :''
     }
   },
   computed: {
-    ...mapGetters('user',["isLoggedIn"])
+    layout(){
+      return this.$route.meta.layout  || 'default'
+    },
+   ...mapGetters('user',['isLoggedIn','currentUserId'])
+   
   },
-  methods: {
-    ...mapActions('user',["logoutUser"])
-    
-  },
+  mounted() {
+    this.getDeviceInfo()
+  
+},
+methods: {
+    async getDeviceInfo(){
+       const { Device } = Plugins
+        this.deviceModel =  await Device.getInfo()
+        this.deviceModel = this.deviceModel.model
+        
+    }
+   
+},
+ 
+  
 }
 </script>
-<style>
-
-</style>
